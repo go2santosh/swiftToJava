@@ -19,22 +19,52 @@ function convertSwiftToJava(swiftCode) {
 
 function convertSwiftConstantDeclarationToJava(swiftStatement) {
 	
-    var remainingSwiftStatement = swiftStatement;
-    var javaStatement = "";
+    var success = true;
+    var javaStatement;
     
-    if (remainingSwiftStatement.startsWith("static let ")) {
-    	javaStatement = "private static final String ";
+    if (swiftStatement.startsWith("static let ")) {
+    
+        var remainingSwiftStatement = swiftStatement;
+        var javaDeclarationStart;
+
+    	javaDeclarationStart = "private static final";
         remainingSwiftStatement = remainingSwiftStatement.substring("static let ".length);
+        
+        var variableNameAndValue = remainingSwiftStatement.split("=");
+        var variableNameAndType = variableNameAndValue[0].split(":");
+        var variableName = variableNameAndType[0].trim();
+        var variableValue = variableNameAndValue[1].trim();
+        var variableSwiftType = "";
+        if (variableNameAndType.length > 1) {
+        	variableSwiftType = variableNameAndType[1].trim();
+        }
+        else {
+        	if (variableValue.startsWith("\"")) {
+            	variableSwiftType = "String";
+            }
+            else {
+            	success = false;
+            }
+        }
+        
+        javaStatement = javaDeclarationStart
+          .concat(" ")
+          .concat(variableSwiftType)
+          .concat(" ")
+          .concat(variableName)
+          .concat(" = ")
+          .concat(variableValue);
+    }
+    else {
+    	success = false;
     }
     
-    var variableNameAndValue = remainingSwiftStatement.split("=");
-    var variableName = variableNameAndValue[0];
-    var variableValue = variableNameAndValue[1];
-    
-    javaStatement = javaStatement.concat(variableName);
-    javaStatement = javaStatement.concat(" = ").concat(variableName);
-    
-    return javaStatement;
+    if (success) {
+    	return javaStatement;
+    }
+    else {
+    	return "//TODO: ".concat(swiftStatement);
+    }
 }
 
 function addSemicollonIfMissing(text) {
