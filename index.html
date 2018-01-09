@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h2>Swift To Java Code Conversion Utility</h2>
+    <label>Swift Code</label>
+    <br/>
+    <textarea id="swiftcode" rows="4" cols="80"></textarea>
+    <br/>
+    <button type="button" onclick="convert()">Convert to Java</button>
+    <br/>
+    <label>Java Code</label>
+    <br/>
+    <textarea id="javacode" rows="4" cols="80"></textarea>
+    <script>
+      function convert() {
+        var swiftCode = document.getElementById('swiftcode').value;
+        var javaCode = convertSwiftToJava(swiftCode);
+        document.getElementById('javacode').innerHTML = javaCode;
+      }
+    </script>
+  </body>
+</html> 
