@@ -1,25 +1,59 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Swift To Java Code Conversion Utility</title>
+    <link rel="stylesheet" href="style.css">
     <script src="swiftToJava.js"></script>
   </head>
   <body>
-    <h2>Swift To Java Code Conversion Utility</h2>
-    <label>Swift Code</label>
-    <br/>
-    <textarea id="swiftcode" rows="4" cols="80"></textarea>
-    <br/>
-    <button type="button" onclick="convert()">Convert to Java</button>
-    <br/>
-    <label>Java Code</label>
-    <br/>
-    <textarea id="javacode" rows="4" cols="80"></textarea>
+    <h1>Swift To Java Code Conversion Utility</h1>
+    <table>
+      <tr>
+        <td>
+          <button onclick="clearAll()">Clear All</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Swift Code</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea id="swiftcode" rows="4" cols="80"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" onclick="convert()">Convert to Java</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Java Code</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea id="javacode" rows="4" cols="80"></textarea>
+        </td>
+      </tr>
+    </table>
+
     <script>
+      function clearAll() {
+        document.getElementById('swiftcode').value = "";
+        document.getElementById('javacode').value = "";
+      }
+      
       function convert() {
         var swiftCode = document.getElementById('swiftcode').value;
         var javaCode = convertSwiftToJava(swiftCode);
         document.getElementById('javacode').innerHTML = javaCode;
       }
     </script>
+
   </body>
 </html> 
